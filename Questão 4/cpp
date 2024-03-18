@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+// Estrutura para representar a informação de proximidade de pessoa em cada sensor
+struct Proximidade {
+    int idPessoa;
+    int nivelProximidade;
+};
+
+// Função de pré-processamento para gerar os vetores finais
+vector<vector<Proximidade>> preprocessamento(vector<vector<Proximidade>>& sensores) {
+    unordered_map<int, int> idToIndex;
+    vector<vector<Proximidade>> vetoresFinais(4);
+
+    for (int i = 0; i < 4; ++i) {
+        for (const auto& proximidade : sensores[i]) {
+            int id = proximidade.idPessoa;
+            int nivel = proximidade.nivelProximidade;
+
+            if (idToIndex.find(id) == idToIndex.end()) {
+                idToIndex[id] = i;
+                vetoresFinais[i].push_back(proximidade);
+            } else {
+                int index = idToIndex[id];
+                if (nivel < vetoresFinais[index].back().nivelProximidade) {
+                    vetoresFinais[index].back() = proximidade;
+                }
+            }
+        }
+    }
+
+    return vetoresFinais;
+}
+
+// Função para determinar o nível de proximidade de pessoa em cada sensor
+vector<string> determinarNiveis(const vector<vector<Proximidade>>& vetoresFinais) {
+    vector<string> niveis;
+
+    for (const auto& vetor : vetoresFinais) {
+        if (vetor.empty()) {
+            niveis.push_back("Nenhuma pessoa");
+        } else {
+            int nivelProximidade = vetor[0].nivelProximidade;
+            if (nivelProximidade <= 30) {
+                niveis.push_back("Nível 1 - Muito próximo");
+            } else if (nivelProximidade <= 60) {
+                niveis.push_back("Nível 2 - Próximo");
+            } else {
+                niveis.push_back("Nível 3 - Distante");
+            }
+        }
+    }
+
+    return niveis;
+}
+
+int main() {
+    // Dados de entrada
+    vector<vector<Proximidade>> sensores = {
+        {{5, 31}, {7, 18}, {2, 55}},
+        {{5, 33}, {7, 31}, {2, 45}},
+        {{5, 37}, {7, 31}, {2, 50}},
+        {{5, 45}, {7, 25}, {2, 50}}
+    };
+
+    // Pré-processamento para gerar os vetores finais
+    vector<vector<Proximidade>> vetoresFinais = preprocessamento(sensores);
+
+    // Determinar o nível de proximidade de pessoa em cada sensor
+    vector<string> niveis = determinarNiveis(vetoresFinais);
+
+    // Imprimir os resultados
+    for (int i = 0; i < 4; ++i) {
+        cout << "Sensor " << i + 1 << ": " << niveis[i] << endl;
+    }
+
+    return 0;
+}

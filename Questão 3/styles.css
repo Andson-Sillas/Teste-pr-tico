@@ -1,0 +1,22 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: blueviolet;
+}
+
+.container{
+    display:flex;
+    justify-content: center;
+    margin-top:200px ;
+}
+
+p{
+    text-align:justify;
+    
+    width: 600px;
+    height: 200px;
+}

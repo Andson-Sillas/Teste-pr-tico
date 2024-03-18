@@ -1,0 +1,27 @@
+//Crie uma consulta que retorne o nome e serie dos equipamentos, nome e descrição dos problemas
+SELECT 
+    equipamentos.nome AS nome_equipamento,
+    equipamentos.serie AS serie_equipamento,
+    problemas.nome AS nome_problema,
+    problemas.descricao AS descricao_problema
+FROM 
+    equipamentos
+JOIN 
+    problemas ON equipamentos.id = problemas.equipamento_id;
+
+//restringindo essa consulta apenas para os chamados que estão com o status aberto (status= 1);
+
+
+SELECT 
+    equipamentos.nome AS nome_equipamento,
+    equipamentos.serie AS serie_equipamento,
+    problemas.nome AS nome_problema,
+    problemas.descricao AS descricao_problema
+FROM 
+    equipamentos
+JOIN 
+    problemas ON equipamentos.id = problemas.equipamento_id
+WHERE
+    problemas.status = 1;
+
+//

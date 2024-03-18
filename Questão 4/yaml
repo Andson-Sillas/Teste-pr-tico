@@ -1,0 +1,28 @@
+Início
+
+Leia os dados de entrada dos sensores
+
+Pré-processamento:
+    Para cada sensor:
+        Para cada proximidade no sensor:
+            Se o ID da pessoa não existe nos vetores finais:
+                Adicione a proximidade ao vetor final correspondente
+            Senão:
+                Se o nível de proximidade for menor que o existente no vetor final:
+                    Atualize o nível de proximidade no vetor final
+
+Determinar níveis de proximidade:
+    Para cada vetor final:
+        Se o vetor estiver vazio:
+            Defina o nível como "Nenhuma pessoa"
+        Senão:
+            Se o nível de proximidade for <= 30:
+                Defina o nível como "Nível 1 - Muito próximo"
+            Senão, se o nível de proximidade for <= 60:
+                Defina o nível como "Nível 2 - Próximo"
+            Senão:
+                Defina o nível como "Nível 3 - Distante"
+
+Imprimir os resultados
+
+Fim
